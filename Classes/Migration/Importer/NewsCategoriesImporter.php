@@ -1,5 +1,7 @@
 <?php
+
 declare(strict_types=1);
+
 namespace Jpmschuler\Ttnews2News\Migration\Importer;
 
 use In2code\Migration\Migration\Importer\AbstractImporter;

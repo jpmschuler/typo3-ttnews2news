@@ -1,19 +1,19 @@
 <?php
+
 declare(strict_types=1);
+
 namespace Jpmschuler\Ttnews2News\Migration\PropertyHelpers;
 
 use Doctrine\DBAL\DBALException;
+use Doctrine\DBAL\Driver\Exception;
 use In2code\Migration\Migration\Helper\FileHelper;
 use In2code\Migration\Migration\PropertyHelpers\AbstractPropertyHelper;
 use In2code\Migration\Migration\PropertyHelpers\PropertyHelperInterface;
 use In2code\Migration\Utility\DatabaseUtility;
-use In2code\Migration\Utility\ObjectUtility;
+use LogicException;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 
-/**
- * Class CreateNewsImageRelationAndMoveImagePropertyHelper
- */
-class CreateNewsImageRelationAndMoveImagePropertyHelper extends AbstractPropertyHelper implements PropertyHelperInterface
+class CreateNewsImageRelationAndMoveFilePropertyHelper extends AbstractPropertyHelper implements PropertyHelperInterface
 {
     /**
      * @var string
@@ -26,12 +26,11 @@ class CreateNewsImageRelationAndMoveImagePropertyHelper extends AbstractProperty
     protected $oldFolder = 'uploads/pics/';
 
     /**
-     * @return void
-     * @throws DBALException
+     * @throws DBALException|Exception
      */
     public function manipulate(): void
     {
-        $fileHelper = ObjectUtility::getObjectManager()->get(FileHelper::class);
+        $fileHelper = GeneralUtility::makeInstance(FileHelper::class);
         $imageNames = $this->getImageNames();
         foreach ($imageNames as $key => $imageName) {
             $fileHelper->copyFileAndCreateReference(
@@ -49,6 +48,7 @@ class CreateNewsImageRelationAndMoveImagePropertyHelper extends AbstractProperty
     /**
      * @param int $key
      * @return array
+     * @throws DBALException|Exception
      */
     protected function getAdditionalProperties(int $key): array
     {
@@ -75,6 +75,7 @@ class CreateNewsImageRelationAndMoveImagePropertyHelper extends AbstractProperty
 
     /**
      * @return array
+     * @throws DBALException|Exception
      */
     protected function getImageNames(): array
     {
@@ -83,6 +84,7 @@ class CreateNewsImageRelationAndMoveImagePropertyHelper extends AbstractProperty
 
     /**
      * @return array
+     * @throws DBALException|Exception
      */
     protected function getTitleTexts(): array
     {
@@ -91,6 +93,7 @@ class CreateNewsImageRelationAndMoveImagePropertyHelper extends AbstractProperty
 
     /**
      * @return array
+     * @throws DBALException|Exception
      */
     protected function getAltTexts(): array
     {
@@ -99,6 +102,7 @@ class CreateNewsImageRelationAndMoveImagePropertyHelper extends AbstractProperty
 
     /**
      * @return array
+     * @throws DBALException|Exception
      */
     protected function getImageCaptions(): array
     {
@@ -107,6 +111,7 @@ class CreateNewsImageRelationAndMoveImagePropertyHelper extends AbstractProperty
 
     /**
      * @return array
+     * @throws DBALException|Exception
      */
     protected function getImageLinks(): array
     {
@@ -118,19 +123,20 @@ class CreateNewsImageRelationAndMoveImagePropertyHelper extends AbstractProperty
      *
      * @param string $propertyName
      * @return int|string
+     * @throws DBALException|Exception|LogicException
      */
-    protected function getPropertyFromRecordOld(string $propertyName)
+    protected function getPropertyFromRecordOld(string $propertyName): int|string
     {
         $propertiesOld = $this->getPropertiesFromOldRecord();
         if (array_key_exists($propertyName, $propertiesOld)) {
             return $propertiesOld[$propertyName];
-        } else {
-            throw new \LogicException('Property does not exist in ' . __CLASS__, 1569587312);
         }
+        throw new LogicException('Property does not exist in ' . __CLASS__, 1569587312);
     }
 
     /**
      * @return array
+     * @throws DBALException|Exception
      */
     protected function getPropertiesFromOldRecord(): array
     {
@@ -138,7 +144,7 @@ class CreateNewsImageRelationAndMoveImagePropertyHelper extends AbstractProperty
         return (array)$queryBuilder->select('*')
             ->from('tt_news')
             ->where('uid=' . (int)$this->getPropertyFromRecord('_migrated_uid'))
-            ->execute()
-            ->fetch();
+            ->executeQuery()
+            ->fetchAssociative();
     }
 }

@@ -1,4 +1,11 @@
 <?php
+
+use Jpmschuler\Ttnews2News\Migration\Importer\NewsCategoriesImporter;
+use Jpmschuler\Ttnews2News\Migration\Importer\NewsImporter;
+use Jpmschuler\Ttnews2News\Migration\Migrator\CategoriesMigrator;
+use Jpmschuler\Ttnews2News\Migration\Migrator\ContentMigrator;
+use Jpmschuler\Ttnews2News\Migration\Migrator\NewsMigrator;
+
 return [
     // Default values if not given from CLI
     'configuration' => [
@@ -12,7 +19,7 @@ return [
     // Define your migrations
     'migrations' => [
         [
-            'className' => \Jpmschuler\Ttnews2News\Migration\Importer\NewsCategoriesImporter::class,
+            'className' => NewsCategoriesImporter::class,
             'keys' => [
                 'news',
                 'categories',
@@ -20,7 +27,7 @@ return [
             ]
         ],
         [
-            'className' => \Jpmschuler\Ttnews2News\Migration\Migrator\CategoriesMigrator::class,
+            'className' => CategoriesMigrator::class,
             'keys' => [
                 'news',
                 'categories',
@@ -28,19 +35,19 @@ return [
             ]
         ],
         [
-            'className' => \Jpmschuler\Ttnews2News\Migration\Importer\NewsImporter::class,
+            'className' => NewsImporter::class,
             'keys' => [
                 'news'
             ]
         ],
         [
-            'className' => \Jpmschuler\Ttnews2News\Migration\Migrator\NewsMigrator::class,
+            'className' => NewsMigrator::class,
             'keys' => [
                 'news'
             ]
         ],
         [
-            'className' => \Jpmschuler\Ttnews2News\Migration\Migrator\ContentMigrator::class,
+            'className' => ContentMigrator::class,
             'keys' => [
                 'content'
             ]

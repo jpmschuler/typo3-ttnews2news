@@ -1,28 +1,29 @@
 <?php
+
 declare(strict_types=1);
+
 namespace Jpmschuler\Ttnews2News\Migration\PropertyHelpers;
 
 use Doctrine\DBAL\DBALException;
+use Doctrine\DBAL\Driver\Exception;
 use In2code\Migration\Migration\Helper\DatabaseHelper;
 use In2code\Migration\Migration\PropertyHelpers\AbstractPropertyHelper;
 use In2code\Migration\Migration\PropertyHelpers\PropertyHelperInterface;
 use In2code\Migration\Utility\DatabaseUtility;
-use In2code\Migration\Utility\ObjectUtility;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 /**
  * Class CreateNewsRelatedRelationsPropertyHelper
  */
 class CreateNewsRelatedRelationsPropertyHelper extends AbstractPropertyHelper implements PropertyHelperInterface
 {
-
     /**
      * @var string
      */
     protected $mmTableName = 'tx_news_domain_model_news_related_mm';
 
     /**
-     * @return void
-     * @throws DBALException
+     * @throws DBALException|Exception
      */
     public function manipulate(): void
     {
@@ -35,7 +36,7 @@ class CreateNewsRelatedRelationsPropertyHelper extends AbstractPropertyHelper im
                     'uid_local' => $identifier,
                     'sorting' => $key
                 ];
-                $databaseHelper = ObjectUtility::getObjectManager()->get(DatabaseHelper::class);
+                $databaseHelper = GeneralUtility::makeInstance(DatabaseHelper::class);
                 $databaseHelper->createRecord($this->mmTableName, $properties);
                 $this->log->addMessage(
                     'new news relation added to news ' . $this->getPropertyFromRecord('uid') . '<=>' . $identifier
@@ -46,6 +47,7 @@ class CreateNewsRelatedRelationsPropertyHelper extends AbstractPropertyHelper im
 
     /**
      * @return int[]
+     * @throws DBALException|Exception
      */
     protected function getRelatedTtNews(): array
     {
@@ -53,8 +55,8 @@ class CreateNewsRelatedRelationsPropertyHelper extends AbstractPropertyHelper im
         $rows = (array)$queryBuilder->select('*')
             ->from('tt_news_related_mm')
             ->where('uid_local=' . (int)$this->getPropertyFromRecord('_migrated_uid'))
-            ->execute()
-            ->fetchAll();
+            ->executeQuery()
+            ->fetchAssociative();
         $identifiers = [];
         foreach ($rows as $row) {
             if ($row['uid_foreign'] > 0) {
@@ -67,6 +69,7 @@ class CreateNewsRelatedRelationsPropertyHelper extends AbstractPropertyHelper im
     /**
      * @param int $oldIdentifier
      * @return int
+     * @throws DBALException|Exception
      */
     protected function changeIdentifierFromOldToNew(int $oldIdentifier): int
     {
@@ -74,7 +77,7 @@ class CreateNewsRelatedRelationsPropertyHelper extends AbstractPropertyHelper im
         return (int)$queryBuilder->select('uid')
             ->from('tx_news_domain_model_news')
             ->where('_migrated_uid=' . (int)$oldIdentifier)
-            ->execute()
-            ->fetchColumn(0);
+            ->executeQuery()
+            ->fetchOne();
     }
 }

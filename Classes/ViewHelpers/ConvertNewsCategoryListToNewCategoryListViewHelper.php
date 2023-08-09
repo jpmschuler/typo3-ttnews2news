@@ -1,7 +1,11 @@
 <?php
+
 declare(strict_types=1);
+
 namespace Jpmschuler\Ttnews2News\ViewHelpers;
 
+use Doctrine\DBAL\DBALException;
+use Doctrine\DBAL\Driver\Exception;
 use In2code\Migration\Utility\DatabaseUtility;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper;
@@ -11,16 +15,14 @@ use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper;
  */
 class ConvertNewsCategoryListToNewCategoryListViewHelper extends AbstractViewHelper
 {
-    /**
-     * @return void
-     */
-    public function initializeArguments()
+    public function initializeArguments(): void
     {
         $this->registerArgument('list', 'string', 'list with tt_news_cat uids', true);
     }
 
     /**
      * @return string
+     * @throws DBALException|Exception
      */
     public function render(): string
     {
@@ -34,8 +36,8 @@ class ConvertNewsCategoryListToNewCategoryListViewHelper extends AbstractViewHel
                 ->where('_migrated_uid=' . $categoryOld . ' and _migrated_table="tt_news_cat"')
                 ->setMaxResults(1)
                 ->orderBy('uid', 'desc')
-                ->execute()
-                ->fetchColumn(0);
+                ->executeQuery()
+                ->fetchOne();
         }
         return implode(',', $newList);
     }

@@ -1,5 +1,7 @@
 <?php
+
 declare(strict_types=1);
+
 namespace Jpmschuler\Ttnews2News\Migration\Migrator;
 
 use In2code\Migration\Migration\Migrator\AbstractMigrator;
@@ -7,7 +9,7 @@ use In2code\Migration\Migration\Migrator\MigratorInterface;
 use In2code\Migration\Migration\PropertyHelpers\SlugPropertyHelper;
 use Jpmschuler\Ttnews2News\Migration\PropertyHelpers\CreateNewsCategoryRelationPropertyHelper;
 use Jpmschuler\Ttnews2News\Migration\PropertyHelpers\CreateNewsFileRelationsPropertyHelper;
-use Jpmschuler\Ttnews2News\Migration\PropertyHelpers\CreateNewsImageRelationAndMoveImagePropertyHelper;
+use Jpmschuler\Ttnews2News\Migration\PropertyHelpers\CreateNewsImageRelationAndMoveFilePropertyHelper;
 use Jpmschuler\Ttnews2News\Migration\PropertyHelpers\CreateNewsRelatedRelationsPropertyHelper;
 
 /**
@@ -37,7 +39,8 @@ class NewsMigrator extends AbstractMigrator implements MigratorInterface
      * @var array
      */
     protected $values = [
-        '_migrated_twice' => 1 // Don't migrate a second time (for other branches that should also be migrated)
+        '_migrated_twice' => 1
+// Don't migrate a second time (for other branches that should also be migrated)
     ];
 
     /**
@@ -61,7 +64,7 @@ class NewsMigrator extends AbstractMigrator implements MigratorInterface
         ],
         'fal_media' => [
             [
-                'className' => CreateNewsImageRelationAndMoveImagePropertyHelper::class
+                'className' => CreateNewsImageRelationAndMoveFilePropertyHelper::class
             ]
         ],
         'fal_related_files' => [

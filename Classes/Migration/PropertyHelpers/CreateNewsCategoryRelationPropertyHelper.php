@@ -1,20 +1,22 @@
 <?php
+
 declare(strict_types=1);
+
 namespace Jpmschuler\Ttnews2News\Migration\PropertyHelpers;
 
 use Doctrine\DBAL\DBALException;
+use Doctrine\DBAL\Driver\Exception;
 use In2code\Migration\Migration\Helper\DatabaseHelper;
 use In2code\Migration\Migration\PropertyHelpers\AbstractPropertyHelper;
 use In2code\Migration\Migration\PropertyHelpers\PropertyHelperInterface;
 use In2code\Migration\Utility\DatabaseUtility;
-use In2code\Migration\Utility\ObjectUtility;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 /**
  * Class CreateNewsCategoryRelationPropertyHelper
  */
 class CreateNewsCategoryRelationPropertyHelper extends AbstractPropertyHelper implements PropertyHelperInterface
 {
-
     /**
      * @var string
      */
@@ -26,12 +28,11 @@ class CreateNewsCategoryRelationPropertyHelper extends AbstractPropertyHelper im
     protected $oldTableName = 'tt_news_cat_mm';
 
     /**
-     * @return void
      * @throws DBALException
      */
     public function manipulate(): void
     {
-        $databaseHelper = ObjectUtility::getObjectManager()->get(DatabaseHelper::class);
+        $databaseHelper = GeneralUtility::makeInstance(DatabaseHelper::class);
         $newsUid = (int)$this->getPropertyFromRecord('uid');
         $newsUidOld = (int)$this->getPropertyFromRecord('_migrated_uid');
         $rows = $this->getOldProperties($newsUidOld);
@@ -56,14 +57,14 @@ class CreateNewsCategoryRelationPropertyHelper extends AbstractPropertyHelper im
     /**
      * @param int $newsUidOld
      * @return array
-     * @throws DBALException
+     * @throws DBALException|Exception
      */
     protected function getOldProperties(int $newsUidOld): array
     {
         $connection = DatabaseUtility::getConnectionForTable($this->oldTableName);
         $rows = (array)$connection->executeQuery(
             'select * from ' . $this->oldTableName . ' where uid_local=' . (int)$newsUidOld
-        )->fetchAll();
+        )->fetchAssociative();
         return $rows;
     }
 
@@ -79,7 +80,7 @@ class CreateNewsCategoryRelationPropertyHelper extends AbstractPropertyHelper im
             ->from('sys_category')
             ->where('_migrated_uid=' . $oldIdentifier . ' and _migrated_table="tt_news_cat"')
             ->setMaxResults(1)
-            ->execute()
-            ->fetchColumn(0);
+            ->executeQuery()
+            ->fetchOne();
     }
 }

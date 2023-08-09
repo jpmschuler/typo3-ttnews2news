@@ -1,5 +1,7 @@
 <?php
+
 declare(strict_types=1);
+
 namespace Jpmschuler\Ttnews2News\Migration\PropertyHelpers;
 
 use Doctrine\DBAL\DBALException;
@@ -12,9 +14,7 @@ use In2code\Migration\Utility\DatabaseUtility;
  */
 class CreateSortingNumberFromPropertyPropertyHelper extends AbstractPropertyHelper implements PropertyHelperInterface
 {
-
     /**
-     * @return void
      * @throws DBALException
      */
     public function manipulate(): void

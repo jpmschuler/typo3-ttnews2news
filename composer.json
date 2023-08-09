@@ -13,9 +13,9 @@
 		}
 	],
 	"require": {
-		"typo3/cms-backend": "^v11.5.10 || ^v12.4.0",
-		"typo3/cms-core": "^v11.5.10 || ^v12.4.0",
-		"typo3/cms-frontend": "^v11.5.10 || ^v12.4.0",
+		"typo3/cms-backend": "^v11.5.10",
+		"typo3/cms-core": "^v11.5.10",
+		"typo3/cms-frontend": "^v11.5.10",
 		"in2code/migration": "^10 || ^11 || dev-master"
 	},
 	"require-dev": {
@@ -95,9 +95,9 @@
 		"lint:phpcs": "@lint:phpcbf",
 		"lint:phpcs:dry-run": "phpcs Classes",
 		"lint:phpcs:dry-run:onlyerrors": "phpcs -n Classes",
-		"lint:phpstan": "phpstan --level=7 --memory-limit=1G analyse",
-		"lint:phpstan:baseline": "phpstan --level=7 --memory-limit=1G analyse --generate-baseline",
-		"lint:phpstan:ci": "phpstan --level=7 --memory-limit=1G --no-progress analyse",
+		"lint:phpstan": "phpstan --level=5 --memory-limit=1G analyse",
+		"lint:phpstan:baseline": "phpstan --level=5 --memory-limit=1G analyse --generate-baseline",
+		"lint:phpstan:ci": "phpstan --level=5 --memory-limit=1G --no-progress analyse",
 		"lint:typoscript": "typoscript-lint",
 		"post-update": "@post-install",
 		"prepare-release": [
