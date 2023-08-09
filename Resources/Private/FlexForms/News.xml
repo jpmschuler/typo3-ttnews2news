@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<T3FlexForms>
+    <data>
+        <sheet index="sDEF">
+            <language index="lDEF">
+                <field index="settings.orderDirection">
+                    <value index="vDEF">{flexForm.ascDesc}</value>
+                </field>
+                <field index="settings.categories">
+                    <value index="vDEF">{migrationextend:convertNewsCategoryListToNewCategoryList(list:flexForm.categorySelection)}</value>
+                </field>
+                <field index="settings.categoryConjunction">
+                    <value index="vDEF">{additionalMapping.categorySetting}</value>
+                </field>
+                <field index="settings.startingpoint">
+                    <value index="vDEF">{flexForm.pages}</value>
+                </field>
+                <field index="switchableControllerActions">
+                    <value index="vDEF">{additionalMapping.switchableControllerActions}</value>
+                </field>
+                <field index="settings.includeSubCategories">
+                    <value index="vDEF">{flexForm.useSubCategories}</value>
+                </field>
+                <field index="settings.archiveRestriction">
+                    <value index="vDEF">{additionalMapping.archiveSetting}</value>
+                </field>
+            </language>
+        </sheet>
+        <sheet index="additional">
+            <language index="lDEF">
+                <field index="settings.detailPid">
+                    <value index="vDEF">{flexForm.PIDitemDisplay}</value>
+                </field>
+                <field index="settings.listPid">
+                    <value index="vDEF">{flexForm.backPid}</value>
+                </field>
+                <field index="settings.limit">
+                    <value index="vDEF">{flexForm.listLimit}</value>
+                </field>
+                <field index="settings.backPid">
+                    <value index="vDEF">{flexForm.backPid}</value>
+                </field>
+            </language>
+        </sheet>
+        <sheet index="template">
+            <language index="lDEF">
+                <field index="settings.templateLayout">
+                    <value index="vDEF"></value>
+                </field>
+            </language>
+        </sheet>
+    </data>
+</T3FlexForms>
