@@ -4,13 +4,12 @@ declare(strict_types=1);
 
 namespace Jpmschuler\Ttnews2News\Migration\Migrator;
 
-use In2code\Migration\Migration\Migrator\AbstractMigrator;
 use In2code\Migration\Migration\Migrator\MigratorInterface;
 use In2code\Migration\Migration\PropertyHelpers\SlugPropertyHelper;
+use Jpmschuler\Ttnews2News\Migration\PropertyHelpers\CopySysFileReferencePropertyHelper;
 use Jpmschuler\Ttnews2News\Migration\PropertyHelpers\CreateNewsCategoryRelationPropertyHelper;
-use Jpmschuler\Ttnews2News\Migration\PropertyHelpers\CreateNewsFileRelationsPropertyHelper;
-use Jpmschuler\Ttnews2News\Migration\PropertyHelpers\CreateNewsImageRelationAndMoveFilePropertyHelper;
 use Jpmschuler\Ttnews2News\Migration\PropertyHelpers\CreateNewsRelatedRelationsPropertyHelper;
+use Jpmschuler\Ttnews2News\Migration\PropertyHelpers\GetNewUidIfAlreadyMigratedPropertyHelper;
 
 /**
  * Class NewsMigrator
@@ -64,29 +63,25 @@ class NewsMigrator extends AbstractMigrator implements MigratorInterface
         ],
         'fal_media' => [
             [
-                'className' => CreateNewsImageRelationAndMoveFilePropertyHelper::class
+                'className' => CopySysFileReferencePropertyHelper::class,
+                'configuration' => [
+                    'oldFieldName' => 'image',
+                    'oldTableName' => 'tt_news'
+                ]
             ]
         ],
         'fal_related_files' => [
             [
-                'className' => CreateNewsFileRelationsPropertyHelper::class
+                'className' => CopySysFileReferencePropertyHelper::class,
+                'configuration' => [
+                    'oldFieldName' => 'news_files',
+                    'oldTableName' => 'tt_news'
+                ]
             ]
         ],
         'related' => [
             [
                 'className' => CreateNewsRelatedRelationsPropertyHelper::class
-            ]
-        ],
-        'path_segment' => [
-            [
-                'className' => SlugPropertyHelper::class,
-                'configuration' => [
-                    'conditions' => [
-                        'deleted' => [
-                            '0'
-                        ]
-                    ]
-                ]
             ]
         ]
     ];

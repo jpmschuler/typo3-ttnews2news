@@ -2,7 +2,6 @@
 declare(strict_types=1);
 namespace Jpmschuler\Ttnews2News\Migration\Migrator;
 
-use In2code\Migration\Migration\Migrator\AbstractMigrator;
 use In2code\Migration\Migration\Migrator\MigratorInterface;
 use In2code\Migration\Migration\PropertyHelpers\FlexFormGeneratorPropertyHelper;
 

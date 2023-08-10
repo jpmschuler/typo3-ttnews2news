@@ -10,9 +10,9 @@ return [
     // Default values if not given from CLI
     'configuration' => [
         'key' => '',
-        'dryrun' => true,
+        'dryrun' => false,
         'limitToRecord' => null,
-        'limitToPage' => 583,
+        'limitToPage' => 1516,
         'recursive' => true
     ],
 
@@ -44,12 +44,6 @@ return [
             'className' => NewsMigrator::class,
             'keys' => [
                 'news'
-            ]
-        ],
-        [
-            'className' => ContentMigrator::class,
-            'keys' => [
-                'content'
             ]
         ]
     ]

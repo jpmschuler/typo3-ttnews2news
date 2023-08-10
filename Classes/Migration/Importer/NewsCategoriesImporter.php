@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Jpmschuler\Ttnews2News\Migration\Importer;
 
-use In2code\Migration\Migration\Importer\AbstractImporter;
 use In2code\Migration\Migration\Importer\ImporterInterface;
 use Jpmschuler\Ttnews2News\Migration\PropertyHelpers\CreateSortingNumberFromPropertyPropertyHelper;
 

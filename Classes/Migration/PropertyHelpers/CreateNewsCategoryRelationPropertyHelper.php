@@ -37,7 +37,7 @@ class CreateNewsCategoryRelationPropertyHelper extends AbstractPropertyHelper im
         $newsUidOld = (int)$this->getPropertyFromRecord('_migrated_uid');
         $rows = $this->getOldProperties($newsUidOld);
         foreach ($rows as $row) {
-            if ((int)$row['uid_foreign'] > 0) {
+            if ((int)($row['uid_foreign'] ?? 0) > 0) {
                 $newCategoryUid = $this->getNewCategoryIdentifier((int)$row['uid_foreign']);
                 if ($newCategoryUid > 0) {
                     $newRow = [
@@ -64,7 +64,7 @@ class CreateNewsCategoryRelationPropertyHelper extends AbstractPropertyHelper im
         $connection = DatabaseUtility::getConnectionForTable($this->oldTableName);
         $rows = (array)$connection->executeQuery(
             'select * from ' . $this->oldTableName . ' where uid_local=' . (int)$newsUidOld
-        )->fetchAssociative();
+        )->fetchAllAssociative();
         return $rows;
     }
 

@@ -56,10 +56,10 @@ class CreateNewsRelatedRelationsPropertyHelper extends AbstractPropertyHelper im
             ->from('tt_news_related_mm')
             ->where('uid_local=' . (int)$this->getPropertyFromRecord('_migrated_uid'))
             ->executeQuery()
-            ->fetchAssociative();
+            ->fetchAllAssociative();
         $identifiers = [];
         foreach ($rows as $row) {
-            if ($row['uid_foreign'] > 0) {
+            if (($row['uid_foreign'] ?? 0) > 0) {
                 $identifiers[] = (int)$row['uid_foreign'];
             }
         }
