@@ -12,7 +12,7 @@ return [
         'key' => '',
         'dryrun' => false,
         'limitToRecord' => null,
-        'limitToPage' => 1516,
+        'limitToPage' => 21033,
         'recursive' => true
     ],
 

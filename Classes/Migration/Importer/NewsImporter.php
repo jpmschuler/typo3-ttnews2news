@@ -35,12 +35,13 @@ class NewsImporter extends AbstractImporter implements ImporterInterface
     /**
      * @var bool
      */
-    protected $keepIdentifiers = false;
+    protected $keepIdentifiers = true;
 
     /**
      * @var array
      */
     protected $mapping = [
+        'uid' => 'uid',
         'type' => 'type',
         'title' => 'title',
         'short' => 'teaser',

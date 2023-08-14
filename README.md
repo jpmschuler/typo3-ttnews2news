@@ -11,6 +11,11 @@
 SUsing EXT:migration to switch to EXT:news from EXT:tt_news.
 Based on https://www.in2code.de/aktuelles/typo3-migration-von-tt-news-zu-tx-news/
 
+# Requirements
+11LTS with tt_news >=10, so already on FAL and using `fileadmin/migratedNewsAssets` for old stuff
+Written for 11LTS + PHP8.1 (so tt_news with PRs https://github.com/rupertgermann/tt_news/pull/201 and
+https://github.com/rupertgermann/tt_news/pull/195)
+
 
 |                 | URL                                                               |
 |-----------------|-------------------------------------------------------------------|
