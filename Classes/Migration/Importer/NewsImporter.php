@@ -4,43 +4,22 @@ declare(strict_types=1);
 
 namespace Jpmschuler\Ttnews2News\Migration\Importer;
 
-use Doctrine\DBAL\DBALException;
-use Doctrine\DBAL\Driver\Exception;
-use In2code\Migration\Exception\ConfigurationException;
 use In2code\Migration\Migration\Importer\ImporterInterface;
-use Jpmschuler\Ttnews2News\Migration\PropertyHelpers\GetNewUidIfAlreadyMigratedPropertyHelper;
-use Jpmschuler\Ttnews2News\Migration\Repository\GeneralRepository;
-use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 /**
  * Class NewsImporter
  */
 class NewsImporter extends AbstractImporter implements ImporterInterface
 {
-    /**
-     * @var string
-     */
-    protected $tableName = 'tx_news_domain_model_news';
+    protected string $tableName = 'tx_news_domain_model_news';
 
-    /**
-     * @var string
-     */
-    protected $tableNameOld = 'tt_news';
+    protected string $tableNameOld = 'tt_news';
 
-    /**
-     * @var bool
-     */
-    protected $truncate = false;
+    protected bool $truncate = false;
 
-    /**
-     * @var bool
-     */
-    protected $keepIdentifiers = true;
+    protected bool $keepIdentifiers = true;
 
-    /**
-     * @var array
-     */
-    protected $mapping = [
+    protected array $mapping = [
         'uid' => 'uid',
         'type' => 'type',
         'title' => 'title',

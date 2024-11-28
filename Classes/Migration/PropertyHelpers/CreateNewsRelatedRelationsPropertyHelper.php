@@ -4,8 +4,6 @@ declare(strict_types=1);
 
 namespace Jpmschuler\Ttnews2News\Migration\PropertyHelpers;
 
-use Doctrine\DBAL\DBALException;
-use Doctrine\DBAL\Driver\Exception;
 use In2code\Migration\Migration\Helper\DatabaseHelper;
 use In2code\Migration\Migration\PropertyHelpers\AbstractPropertyHelper;
 use In2code\Migration\Migration\PropertyHelpers\PropertyHelperInterface;
@@ -23,7 +21,7 @@ class CreateNewsRelatedRelationsPropertyHelper extends AbstractPropertyHelper im
     protected $mmTableName = 'tx_news_domain_model_news_related_mm';
 
     /**
-     * @throws DBALException|Exception
+     * @throws \Doctrine\DBAL\Exception
      */
     public function manipulate(): void
     {
@@ -47,7 +45,7 @@ class CreateNewsRelatedRelationsPropertyHelper extends AbstractPropertyHelper im
 
     /**
      * @return int[]
-     * @throws DBALException|Exception
+     * @throws \Doctrine\DBAL\Exception
      */
     protected function getRelatedTtNews(): array
     {
@@ -69,7 +67,7 @@ class CreateNewsRelatedRelationsPropertyHelper extends AbstractPropertyHelper im
     /**
      * @param int $oldIdentifier
      * @return int
-     * @throws DBALException|Exception
+     * @throws \Doctrine\DBAL\Exception
      */
     protected function changeIdentifierFromOldToNew(int $oldIdentifier): int
     {

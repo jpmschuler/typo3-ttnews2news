@@ -14,32 +14,19 @@ class NewsCategoriesImporter extends AbstractImporter implements ImporterInterfa
 {
     /**
      * Table name where to migrate to
-     *
-     * @var string
      */
-    protected $tableName = 'sys_category';
+    protected string $tableName = 'sys_category';
 
     /**
      * Table name from migrate to
-     *
-     * @var string
      */
-    protected $tableNameOld = 'tt_news_cat';
+    protected string $tableNameOld = 'tt_news_cat';
 
-    /**
-     * @var bool
-     */
-    protected $truncate = false;
+    protected bool $truncate = false;
 
-    /**
-     * @var bool
-     */
-    protected $keepIdentifiers = false;
+    protected bool $keepIdentifiers = false;
 
-    /**
-     * @var array
-     */
-    protected $mapping = [
+    protected array $mapping = [
         'pid' => 'pid',
         'title' => 'title',
         'parent_category' => 'parent',
@@ -59,10 +46,8 @@ class NewsCategoriesImporter extends AbstractImporter implements ImporterInterfa
      *              "className" => class2::class
      *          ]
      *      ]
-     *
-     * @var array
      */
-    protected $propertyHelpers = [
+    protected array $propertyHelpers = [
         'sorting' => [
             [
                 'className' => CreateSortingNumberFromPropertyPropertyHelper::class,

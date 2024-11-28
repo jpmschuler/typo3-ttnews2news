@@ -1,5 +1,7 @@
 <?php
+
 declare(strict_types=1);
+
 namespace Jpmschuler\Ttnews2News\Migration\Migrator;
 
 use In2code\Migration\Migration\Migrator\MigratorInterface;
@@ -10,15 +12,9 @@ use In2code\Migration\Migration\PropertyHelpers\FlexFormGeneratorPropertyHelper;
  */
 class ContentMigrator extends AbstractMigrator implements MigratorInterface
 {
-    /**
-     * @var string
-     */
-    protected $tableName = 'tt_content';
+    protected string $tableName = 'tt_content';
 
-    /**
-     * @var array
-     */
-    protected $propertyHelpers = [
+    protected array $propertyHelpers = [
         'pi_flexform' => [
             [
                 // Build FlexForm for News plugin
@@ -26,7 +22,8 @@ class ContentMigrator extends AbstractMigrator implements MigratorInterface
                 'configuration' => [
                     'condition' => [
                         'CType' => 'list',
-                        'list_type' => '9' // Tt_news plugin
+                        'list_type' => '9'
+// Tt_news plugin
                     ],
                     'flexFormTemplate' => 'EXT:migration_extend/Resources/Private/FlexForms/News.xml',
                     'flexFormField' => 'pi_flexform',
@@ -37,7 +34,8 @@ class ContentMigrator extends AbstractMigrator implements MigratorInterface
                         [
                             // create new variable {additionalMapping.switchableControllerActions}
                             'variableName' => 'switchableControllerActions',
-                            'keyField' => 'flexForm:what_to_display', // "flexForm:path/path" or: "row:uid"
+                            'keyField' => 'flexForm:what_to_display',
+// "flexForm:path/path" or: "row:uid"
                             'mapping' => [
                                 'LIST' => 'News->list;News->detail',
                                 'LIST2' => 'News->list;News->detail',
@@ -63,23 +61,33 @@ class ContentMigrator extends AbstractMigrator implements MigratorInterface
                         [
                             // create new variable {additionalMapping.categorySetting}
                             'variableName' => 'categorySetting',
-                            'keyField' => 'flexForm:categoryMode', // "flexForm:path/path" or: "row:uid"
+                            'keyField' => 'flexForm:categoryMode',
+// "flexForm:path/path" or: "row:uid"
                             'mapping' => [
-                                '0' => '', // show all
-                                '1' => 'or', // show from categories (OR)
-                                '2' => 'and', // show from categories (AND)
-                                '-1' => 'notand', // don't show from categories (AND)
-                                '-2' => 'notor', // don't show from categories (OR)
+                                '0' => '',
+// show all
+                                '1' => 'or',
+// show from categories (OR)
+                                '2' => 'and',
+// show from categories (AND)
+                                '-1' => 'notand',
+// don't show from categories (AND)
+                                '-2' => 'notor',
+// don't show from categories (OR)
                             ]
                         ],
                         [
                             // create new variable {additionalMapping.archiveSetting}
                             'variableName' => 'archiveSetting',
-                            'keyField' => 'flexForm:archive', // "flexForm:path/path" or: "row:uid"
+                            'keyField' => 'flexForm:archive',
+// "flexForm:path/path" or: "row:uid"
                             'mapping' => [
-                                '0' => '', // don't care
-                                '1' => 'archived', // archived only
-                                '-1' => 'active', // not archived only
+                                '0' => '',
+// don't care
+                                '1' => 'archived',
+// archived only
+                                '-1' => 'active',
+// not archived only
                             ]
                         ]
                     ]

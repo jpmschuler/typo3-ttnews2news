@@ -1,12 +1,15 @@
 <?php
+
 declare(strict_types=1);
+
 namespace Jpmschuler\Ttnews2News\Migration\Migrator;
 
 use In2code\Migration\Exception\ConfigurationException;
 use In2code\Migration\Migration\PropertyHelpers\PropertyHelperInterface;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 
-class AbstractMigrator extends \In2code\Migration\Migration\Migrator\AbstractMigrator {
+class AbstractMigrator extends \In2code\Migration\Migration\Migrator\AbstractMigrator
+{
     protected function manipulatePropertiesWithPropertyHelpers(array $properties, array $propertiesOld): array
     {
         foreach ($this->propertyHelpers as $propertyName => $helperConfigurations) {

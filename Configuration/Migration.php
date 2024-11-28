@@ -3,7 +3,6 @@
 use Jpmschuler\Ttnews2News\Migration\Importer\NewsCategoriesImporter;
 use Jpmschuler\Ttnews2News\Migration\Importer\NewsImporter;
 use Jpmschuler\Ttnews2News\Migration\Migrator\CategoriesMigrator;
-use Jpmschuler\Ttnews2News\Migration\Migrator\ContentMigrator;
 use Jpmschuler\Ttnews2News\Migration\Migrator\NewsMigrator;
 
 return [

@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Jpmschuler\Ttnews2News\Migration\PropertyHelpers;
 
-use Doctrine\DBAL\DBALException;
 use In2code\Migration\Migration\PropertyHelpers\AbstractPropertyHelper;
 use In2code\Migration\Migration\PropertyHelpers\PropertyHelperInterface;
 use In2code\Migration\Utility\DatabaseUtility;
@@ -15,7 +14,7 @@ use In2code\Migration\Utility\DatabaseUtility;
 class CreateSortingNumberFromPropertyPropertyHelper extends AbstractPropertyHelper implements PropertyHelperInterface
 {
     /**
-     * @throws DBALException
+     * @throws \Doctrine\DBAL\Exception
      */
     public function manipulate(): void
     {
@@ -32,14 +31,14 @@ class CreateSortingNumberFromPropertyPropertyHelper extends AbstractPropertyHelp
     /**
      * @param string $property
      * @return array
-     * @throws DBALException
+     * @throws \Doctrine\DBAL\Exception
      */
     protected function getAllOldCategoriesSortedByProperty(string $property): array
     {
         $connection = DatabaseUtility::getConnectionForTable('tt_news_cat');
         $rows = (array)$connection->executeQuery(
             'select uid from tt_news_cat where deleted=0 order by "' . $property . '"'
-        )->fetchAll();
+        )->fetchAllAssociative();
         $categories = [];
         $sorting = 100;
         foreach ($rows as $row) {

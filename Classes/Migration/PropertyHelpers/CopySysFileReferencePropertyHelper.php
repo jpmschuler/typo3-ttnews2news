@@ -4,13 +4,10 @@ declare(strict_types=1);
 
 namespace Jpmschuler\Ttnews2News\Migration\PropertyHelpers;
 
-use Doctrine\DBAL\DBALException;
-use Doctrine\DBAL\Driver\Exception;
-use Jpmschuler\Ttnews2News\Migration\Helper\DatabaseHelper;
 use In2code\Migration\Migration\PropertyHelpers\AbstractPropertyHelper;
 use In2code\Migration\Migration\PropertyHelpers\PropertyHelperInterface;
 use In2code\Migration\Utility\DatabaseUtility;
-use LogicException;
+use Jpmschuler\Ttnews2News\Migration\Helper\DatabaseHelper;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 class CopySysFileReferencePropertyHelper extends AbstractPropertyHelper implements PropertyHelperInterface
@@ -18,7 +15,7 @@ class CopySysFileReferencePropertyHelper extends AbstractPropertyHelper implemen
     protected $referenceTable = 'sys_file_reference';
 
     /**
-     * @throws DBALException
+     * @throws \Doctrine\DBAL\Exception
      */
     public function manipulate(): void
     {
@@ -35,11 +32,16 @@ class CopySysFileReferencePropertyHelper extends AbstractPropertyHelper implemen
                     $newRow['fieldname'] = $this->propertyName;
                     unset($newRow['uid']);
                     $databaseHelper->createRecord($this->referenceTable, $newRow);
-                    $this->log->addMessage('New relation to existing ' . $this->propertyName . ' with sys_file_reference ' . $row['uid_foreign'] . ' created');
+                    $this->log->addMessage(
+                        'New relation to existing ' . $this->propertyName .
+                        ' with sys_file_reference ' . $row['uid_foreign'] . ' created'
+                    );
                 }
             } else {
                 $this->log->addNote('Failed creating new relation ');
-                $this->log->addNote(print_r([$row, $this->getRecord()['_migrated_uid'] . '=>' . $this->getRecord()['uid']], true));
+                $this->log->addNote(
+                    print_r([$row, $this->getRecord()['_migrated_uid'] . '=>' . $this->getRecord()['uid']], true)
+                );
             }
         }
     }
@@ -47,7 +49,7 @@ class CopySysFileReferencePropertyHelper extends AbstractPropertyHelper implemen
     /**
      * @param int $newsUidOld
      * @return array
-     * @throws DBALException|Exception
+     * @throws \Doctrine\DBAL\Exception
      */
     protected function getOldPropertiesForRelation(int $newsUidOld): array
     {

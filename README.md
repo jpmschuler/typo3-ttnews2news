@@ -8,17 +8,18 @@
 [![Current CI health](https://github.com/jpmschuler/typo3-staticpathrouteresolver/actions/workflows/ci.yml/badge.svg)](https://github.com/jpmschuler/typo3-staticpathrouteresolver/actions/workflows/ci.yml)
 
 # EXT:ttnews2news
+
 SUsing EXT:migration to switch to EXT:news from EXT:tt_news.
 Based on https://www.in2code.de/aktuelles/typo3-migration-von-tt-news-zu-tx-news/
 
 # Requirements
-11LTS with tt_news >=10, so already on FAL and using `fileadmin/migratedNewsAssets` for old stuff
-Written for 11LTS + PHP8.1 (so tt_news with PRs https://github.com/rupertgermann/tt_news/pull/201 and
+
+12LTS with tt_news >=12, so already on FAL and using `fileadmin/migratedNewsAssets` for old stuff
+Written for 12LTS + PHP8.1 (so tt_news with PRs https://github.com/rupertgermann/tt_news/pull/201 and
 https://github.com/rupertgermann/tt_news/pull/195)
 
-
-|                 | URL                                                               |
-|-----------------|-------------------------------------------------------------------|
-| **Repository:** | https://github.com/jpmschuler/typo3-ttnews2news                   |
+|                 | URL                                                   |
+| --------------- | ----------------------------------------------------- |
+| **Repository:** | https://github.com/jpmschuler/typo3-ttnews2news       |
 | **TER:**        | https://extensions.typo3.org/extension/ttnews2news    |
 | **Packagist:**  | https://packagist.org/packages/jpmschuler/ttnews2news |

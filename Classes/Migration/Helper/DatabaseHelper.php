@@ -14,7 +14,7 @@ class DatabaseHelper extends \In2code\Migration\Migration\Helper\DatabaseHelper
     public function createRecord(string $tableName, array $row): int
     {
         $uid = 0;
-        $excludeWhereFieldsFromSelect =['tstamp', 'crdate', 'uid'];
+        $excludeWhereFieldsFromSelect = ['tstamp', 'crdate', 'uid'];
         $queryBuilder = GeneralUtility::makeInstance(ConnectionPool::class)->getQueryBuilderForTable($tableName);
         $queryBuilder = $queryBuilder
             ->select('*')
@@ -22,7 +22,13 @@ class DatabaseHelper extends \In2code\Migration\Migration\Helper\DatabaseHelper
         foreach ($row as $columnName => $value) {
             if (!in_array($columnName, $excludeWhereFieldsFromSelect)) {
                 $queryBuilder->andWhere(
-                    $queryBuilder->expr()->eq($columnName, $queryBuilder->createNamedParameter($value, is_int($value) ?\PDO::PARAM_INT : \PDO::PARAM_STR))
+                    $queryBuilder->expr()->eq(
+                        $columnName,
+                        $queryBuilder->createNamedParameter(
+                            $value,
+                            is_int($value) ? \PDO::PARAM_INT : \PDO::PARAM_STR
+                        )
+                    )
                 );
             }
         }

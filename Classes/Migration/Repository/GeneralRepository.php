@@ -1,15 +1,12 @@
 <?php
+
 declare(strict_types=1);
 
 namespace Jpmschuler\Ttnews2News\Migration\Repository;
 
-use Doctrine\DBAL\DBALException;
 use Doctrine\DBAL\Driver\Exception;
-use In2code\Migration\Migration\Log\Log;
 use In2code\Migration\Utility\DatabaseUtility;
 use LogicException;
-use TYPO3\CMS\Core\Database\QueryGenerator;
-use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 class GeneralRepository extends \In2code\Migration\Migration\Repository\GeneralRepository
 {
@@ -36,7 +33,7 @@ class GeneralRepository extends \In2code\Migration\Migration\Repository\GeneralR
         }
     }
 
-    public function insertRecord(array $properties, string $tableName)
+    public function insertRecord(array $properties, string $tableName): void
     {
         if ($this->getConfiguration('dryrun') === false) {
             $properties = $this->queue->updatePropertiesWithPropertiesFromQueue(
@@ -55,18 +52,18 @@ class GeneralRepository extends \In2code\Migration\Migration\Repository\GeneralR
 
     /**
      * @param string $tableName
-     * @throws DBALException|Exception
+     * @throws \Doctrine\DBAL\Exception|Exception
      */
     public function isRecordMigrated(
         string $tableName,
-        int    $oldUid
+        int $oldUid
     ): int {
         $connection = DatabaseUtility::getConnectionForTable($tableName);
         /** @noinspection SqlNoDataSourceInspection */
         $query = 'select uid from ' . $tableName . ' where _migrated_uid = ' . $oldUid;
         $result = $connection->executeQuery($query)->fetchOne() ?: -1;
 
-        $this->log->addNote($query .' did '.$result);
-        return $result ?: -1;
+        $this->log->addNote($query . ' did ' . $result);
+        return $result;
     }
 }

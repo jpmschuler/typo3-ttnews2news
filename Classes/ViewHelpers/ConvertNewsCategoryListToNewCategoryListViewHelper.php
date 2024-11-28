@@ -4,8 +4,6 @@ declare(strict_types=1);
 
 namespace Jpmschuler\Ttnews2News\ViewHelpers;
 
-use Doctrine\DBAL\DBALException;
-use Doctrine\DBAL\Driver\Exception;
 use In2code\Migration\Utility\DatabaseUtility;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper;
@@ -22,7 +20,7 @@ class ConvertNewsCategoryListToNewCategoryListViewHelper extends AbstractViewHel
 
     /**
      * @return string
-     * @throws DBALException|Exception
+     * @throws \Doctrine\DBAL\Exception
      */
     public function render(): string
     {

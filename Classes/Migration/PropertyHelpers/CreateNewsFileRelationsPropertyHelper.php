@@ -4,8 +4,6 @@ declare(strict_types=1);
 
 namespace Jpmschuler\Ttnews2News\Migration\PropertyHelpers;
 
-use Doctrine\DBAL\DBALException;
-use Doctrine\DBAL\Driver\Exception;
 use In2code\Migration\Exception\FileNotFoundException;
 use In2code\Migration\Exception\FileOrFolderCouldNotBeCreatedException;
 use In2code\Migration\Migration\Helper\FileHelper;
@@ -30,7 +28,7 @@ class CreateNewsFileRelationsPropertyHelper extends AbstractPropertyHelper imple
     protected $oldFolder = 'uploads/media/';
 
     /**
-     * @throws DBALException|FileNotFoundException|FileOrFolderCouldNotBeCreatedException
+     * @throws \Doctrine\DBAL\Exception|FileNotFoundException|FileOrFolderCouldNotBeCreatedException
      */
     public function manipulate(): void
     {
@@ -55,7 +53,7 @@ class CreateNewsFileRelationsPropertyHelper extends AbstractPropertyHelper imple
      *
      * @param string $propertyName
      * @return int|string
-     * @throws DBALException|\LogicException
+     * @throws \Doctrine\DBAL\Exception|\LogicException
      */
     protected function getPropertyFromRecordOld(string $propertyName): int|string
     {
@@ -68,7 +66,7 @@ class CreateNewsFileRelationsPropertyHelper extends AbstractPropertyHelper imple
 
     /**
      * @return array
-     * @throws DBALException|Exception
+     * @throws \Doctrine\DBAL\Exception
      */
     protected function getPropertiesFromOldRecord(): array
     {

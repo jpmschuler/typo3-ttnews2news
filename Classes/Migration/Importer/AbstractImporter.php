@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Jpmschuler\Ttnews2News\Migration\Importer;
 
-use Doctrine\DBAL\DBALException;
 use Doctrine\DBAL\Driver\Exception;
 use In2code\Migration\Exception\ConfigurationException;
 use In2code\Migration\Migration\Importer\ImporterInterface;
@@ -17,30 +16,15 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
  */
 class AbstractImporter extends \In2code\Migration\Migration\Importer\AbstractImporter implements ImporterInterface
 {
-    /**
-     * @var string
-     */
-    protected $tableName = 'tx_news_domain_model_news';
+    protected string $tableName = 'tx_news_domain_model_news';
 
-    /**
-     * @var string
-     */
-    protected $tableNameOld = 'tt_news';
+    protected string $tableNameOld = 'tt_news';
 
-    /**
-     * @var bool
-     */
-    protected $truncate = false;
+    protected bool $truncate = false;
 
-    /**
-     * @var bool
-     */
-    protected $keepIdentifiers = false;
+    protected bool $keepIdentifiers = false;
 
-    /**
-     * @var array
-     */
-    protected $mapping = [
+    protected array $mapping = [
         'type' => 'type',
         'title' => 'title',
         'short' => 'teaser',
@@ -65,9 +49,7 @@ class AbstractImporter extends \In2code\Migration\Migration\Importer\AbstractImp
     ];
 
     /**
-     * @return void
      * @throws ConfigurationException
-     * @throws DBALException
      * @throws Exception
      */
     public function start(): void
@@ -90,7 +72,8 @@ class AbstractImporter extends \In2code\Migration\Migration\Importer\AbstractImp
         foreach ($records as $propertiesOld) {
             $this->log->addNote(
                 'Start importing ' . $this->tableName
-                . ' (' . $this->tableNameOld . ':' . $propertiesOld['uid'] . ' from pid' . $propertiesOld['pid'] . ') ...'
+                . ' (' . $this->tableNameOld . ':' . $propertiesOld['uid'] .
+                ' from pid' . $propertiesOld['pid'] . ') ...'
             );
             $properties = $this->createPropertiesFromMapping($propertiesOld);
             $properties = $this->createPropertiesFromValues($properties, $propertiesOld);
@@ -110,10 +93,6 @@ class AbstractImporter extends \In2code\Migration\Migration\Importer\AbstractImp
         $this->finalMessageDetailed(count($records), $countImported, $countUpdated);
     }
 
-    /**
-     * @param array $records
-     * @return void
-     */
     protected function finalMessageDetailed($all, $imported, $updated)
     {
         if ($this->configuration['configuration']['dryrun'] === false) {

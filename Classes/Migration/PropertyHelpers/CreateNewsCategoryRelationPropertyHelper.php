@@ -4,8 +4,6 @@ declare(strict_types=1);
 
 namespace Jpmschuler\Ttnews2News\Migration\PropertyHelpers;
 
-use Doctrine\DBAL\DBALException;
-use Doctrine\DBAL\Driver\Exception;
 use In2code\Migration\Migration\Helper\DatabaseHelper;
 use In2code\Migration\Migration\PropertyHelpers\AbstractPropertyHelper;
 use In2code\Migration\Migration\PropertyHelpers\PropertyHelperInterface;
@@ -28,7 +26,7 @@ class CreateNewsCategoryRelationPropertyHelper extends AbstractPropertyHelper im
     protected $oldTableName = 'tt_news_cat_mm';
 
     /**
-     * @throws DBALException
+     * @throws \Doctrine\DBAL\Exception
      */
     public function manipulate(): void
     {
@@ -57,7 +55,7 @@ class CreateNewsCategoryRelationPropertyHelper extends AbstractPropertyHelper im
     /**
      * @param int $newsUidOld
      * @return array
-     * @throws DBALException|Exception
+     * @throws \Doctrine\DBAL\Exception
      */
     protected function getOldProperties(int $newsUidOld): array
     {

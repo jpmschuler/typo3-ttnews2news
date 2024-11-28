@@ -33,7 +33,9 @@ if (PHP_SAPI !== 'cli') {
 }
 // Define in which folders to search and which folders to exclude
 $finder = (new PhpCsFixer\Finder())
-    ->in('Classes');
+    ->in('Classes')
+    ->in('Tests')
+    ->in('Configuration');
 // Return a Code Sniffing configuration using
 // all sniffers needed for PSR-2
 // and additionally:
@@ -95,4 +97,6 @@ return (new \PhpCsFixer\Config())
         'single_trait_insert_per_statement' => true,
         'whitespace_after_comma_in_array' => true,
     ])
+    ->setCacheFile(__DIR__.'.Build/.php-cs-fixer.cache')
+    ->setParallelConfig(\PhpCsFixer\Runner\Parallel\ParallelConfigFactory::detect())
     ->setFinder($finder);
