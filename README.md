@@ -18,6 +18,12 @@ Based on https://www.in2code.de/aktuelles/typo3-migration-von-tt-news-zu-tx-news
 Written for 12LTS + PHP8.1 (so tt_news with PRs https://github.com/rupertgermann/tt_news/pull/201 and
 https://github.com/rupertgermann/tt_news/pull/195)
 
+# Example command
+
+```
+vendor/bin/typo3  migration:migrate --limitToPage=34966 --dryrun=0 --configuration="EXT:ttnews2news/Configuration/Migration.php"
+```
+
 |                 | URL                                                   |
 | --------------- | ----------------------------------------------------- |
 | **Repository:** | https://github.com/jpmschuler/typo3-ttnews2news       |
