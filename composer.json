@@ -14,7 +14,7 @@
   ],
   "require": {
     "ext-pdo": "*",
-    "in2code/migration": "*@dev",
+    "in2code/migration": "^12.9.0",
     "typo3/cms-backend": "^12.4.23",
     "typo3/cms-core": "^12.4.23",
     "typo3/cms-frontend": "^12.4.23"
