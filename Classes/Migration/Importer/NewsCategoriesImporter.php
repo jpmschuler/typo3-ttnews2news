@@ -30,7 +30,6 @@ class NewsCategoriesImporter extends AbstractImporter implements ImporterInterfa
         'pid' => 'pid',
         'title' => 'title',
         'parent_category' => 'parent',
-        'fe_group' => 'fe_group',
         'sorting' => 'sorting'
     ];
 
