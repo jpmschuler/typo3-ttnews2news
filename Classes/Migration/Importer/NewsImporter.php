@@ -35,7 +35,6 @@ class NewsImporter extends AbstractImporter implements ImporterInterface
         'ext_url' => 'externalurl',
         'slug' => 'path_segment',
         'hidden' => 'hidden',
-        'fe_group' => 'fe_group',
         'sys_language_uid' => 'sys_language_uid',
         'l18n_parent' => 'l10n_parent',
         'l18n_diffsource' => 'l10n_diffsource',
